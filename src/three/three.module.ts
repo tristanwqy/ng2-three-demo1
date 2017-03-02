@@ -11,9 +11,10 @@ import { PointLightComponent } from './lights/point-light.component';
 import { VRControlsComponent } from './controls/vr.component';
 import { OrbitControlsComponent } from './controls/orbit.component';
 
-import { SphereComponent } from './objects/sphere.component';
+import { ElementsComponent } from './objects/element.component';
 import { TextureComponent } from './objects/texture.component';
 import { SkyboxComponent } from './objects/skybox.component';
+import {AmbientLightComponent} from './lights/ambient-light.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { SkyboxComponent } from './objects/skybox.component';
     SceneComponent,
     PerspectiveCameraComponent,
     PointLightComponent,
-    SphereComponent,
+    AmbientLightComponent,
+    ElementsComponent,
     VRControlsComponent,
     TextureComponent,
     SkyboxComponent,

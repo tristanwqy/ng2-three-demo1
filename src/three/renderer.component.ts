@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { SceneComponent } from './scene.component';
 import { VRControlsComponent } from './controls/vr.component';
 import { OrbitControlsComponent } from './controls/orbit.component';
+import {ElementsComponent} from './objects/element.component';
 
 @Directive({ selector: 'three-renderer' })
 export class RendererComponent {
@@ -13,6 +14,7 @@ export class RendererComponent {
   @Input() isVRMode: boolean = false;
 
   @ContentChild(SceneComponent) sceneComp: SceneComponent;
+  @ContentChild(ElementsComponent) elementsComponent: ElementsComponent;
   @ContentChild(VRControlsComponent) vrComponent: VRControlsComponent;
   @ContentChild(OrbitControlsComponent) orbitComponent: OrbitControlsComponent;
 
@@ -28,6 +30,9 @@ export class RendererComponent {
     return this.sceneComp.camera;
   }
 
+  get multi(){
+    return this.elementsComponent.multi;
+  }
   constructor(private element: ElementRef) {
   }
 
@@ -54,6 +59,7 @@ export class RendererComponent {
     this.renderer.setSize(this.width, this.height);
     this.element.nativeElement.appendChild(this.renderer.domElement);
     this.renderer.setPixelRatio(Math.floor(window.devicePixelRatio));
+    this.renderer.shadowMapEnabled = true;
 
     if(this.orbitComponent) {
       this.orbitComponent.setupControls(this.camera, this.renderer);
@@ -77,7 +83,7 @@ export class RendererComponent {
 
     this.camera.lookAt(this.scene.position);
     this.renderer.render(this.scene, this.camera);
-
+    this.multi.rotation.y += 0.1 / 60;
     requestAnimationFrame(() => this.render());
   }
 

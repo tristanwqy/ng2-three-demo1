@@ -4,13 +4,13 @@ import * as THREE from 'three';
 @Directive({ selector: 'three-point-light' })
 export class PointLightComponent {
 
-  @Input() color: string = '#FFFF00';
+  @Input() color: string = '#0016ff';
   @Input() position: number[] = [0, 250, 0];
 
-  object: THREE.PointLight;
+  light: THREE.PointLight;
 
   ngOnInit() {
-    this.object = new THREE.PointLight(this.color);
+    this.light = new THREE.PointLight(this.color);
     this.setPosition(this.position);
   }
 
@@ -21,7 +21,7 @@ export class PointLightComponent {
   }
 
   setPosition(position) {
-    this.object.position.set(
+    this.light.position.set(
       position[0],
       position[1],
       position[2]);

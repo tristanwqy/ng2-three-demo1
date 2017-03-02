@@ -25,6 +25,7 @@ import { Input, Component, HostListener } from '@angular/core';
           [positions]="[-2500, 0, 1000]">
         </three-perspective-camera>
 
+        <three-ambient-light></three-ambient-light>
         <three-point-light></three-point-light>
 
         <three-sphere [buildings]="buildings"></three-sphere>

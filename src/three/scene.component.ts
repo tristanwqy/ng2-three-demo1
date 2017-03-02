@@ -4,17 +4,19 @@ import * as THREE from 'three';
 import { PerspectiveCameraComponent } from './cameras/perspective-camera.component';
 import { PointLightComponent } from './lights/point-light.component';
 
-import { SphereComponent } from './objects/sphere.component';
+import { ElementsComponent } from './objects/element.component';
 import { TextureComponent } from './objects/texture.component';
 import { SkyboxComponent } from './objects/skybox.component';
+import { AmbientLightComponent } from './lights/ambient-light.component';
 
 @Directive({ selector: 'three-scene' })
 export class SceneComponent {
 
   @ContentChild(PerspectiveCameraComponent) cameraComp: any;
-  @ContentChildren(PointLightComponent) lightComps: any;
+  @ContentChild(PointLightComponent) lightComp: any;
+  @ContentChild(AmbientLightComponent) ambientLightComp: any;
 
-  @ContentChild(SphereComponent) sphereComps: any;
+  @ContentChild(ElementsComponent) sphereComps: any;
   @ContentChildren(TextureComponent) textureComps: any;
   @ContentChild(SkyboxComponent) skyboxComp: any;
 
@@ -28,13 +30,20 @@ export class SceneComponent {
     return this.sphereComps.multi;
   }
 
+  get pointLight(){
+    return this.lightComp.light;
+  }
+
+  get ambientLight(){
+    return this.ambientLight.light;
+  }
+
   ngAfterContentInit() {
     this.camera.lookAt(this.scene.position);
     this.scene.add(this.camera);
 
     const meshes = [
       this.skyboxComp,
-      ...this.lightComps.toArray(),
       ...this.textureComps.toArray()
     ];
 
@@ -45,7 +54,9 @@ export class SceneComponent {
         mesh.attachScene(this.scene);
       }
     }
-
+    this.scene.add(this.pointLight);
+    this.scene.add(new THREE.AmbientLight(0xcccccc));
+    // this.scene.add(this.ambientLight);
     this.scene.add(this.multi);
   }
 
