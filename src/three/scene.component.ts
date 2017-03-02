@@ -14,7 +14,7 @@ export class SceneComponent {
   @ContentChild(PerspectiveCameraComponent) cameraComp: any;
   @ContentChildren(PointLightComponent) lightComps: any;
 
-  @ContentChildren(SphereComponent) sphereComps: any;
+  @ContentChild(SphereComponent) sphereComps: any;
   @ContentChildren(TextureComponent) textureComps: any;
   @ContentChild(SkyboxComponent) skyboxComp: any;
 
@@ -24,6 +24,10 @@ export class SceneComponent {
     return this.cameraComp.camera;
   }
 
+  get multi(){
+    return this.sphereComps.multi;
+  }
+
   ngAfterContentInit() {
     this.camera.lookAt(this.scene.position);
     this.scene.add(this.camera);
@@ -31,7 +35,6 @@ export class SceneComponent {
     const meshes = [
       this.skyboxComp,
       ...this.lightComps.toArray(),
-      ...this.sphereComps.toArray(),
       ...this.textureComps.toArray()
     ];
 
@@ -42,6 +45,8 @@ export class SceneComponent {
         mesh.attachScene(this.scene);
       }
     }
+
+    this.scene.add(this.multi);
   }
 
 }

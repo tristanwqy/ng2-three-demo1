@@ -12,17 +12,18 @@ import { VoiceService } from './services/voice.service';
 import { MusicService } from './services/music.service';
 import { requestFullScreen } from '../utils/fullscreen';
 import './app.scss';
+import { MockBuildings} from './mock-building';
 
 @Component({
   selector: 'app',
   template: `
     <main>
-      <header [@searchTransition]="feedback ? 'active' : 'inactive'">
-        <h1>
-          <span *ngIf="!feedback">Say "Play Luke Bryan" to hear a song...</span>
-          <span *ngIf="feedback">{{feedback}}</span>
-        </h1>
-      </header>
+      <!--<header [@searchTransition]="feedback ? 'active' : 'inactive'">-->
+        <!--<h1>-->
+          <!--<span *ngIf="!feedback">Say "Play Luke Bryan" to hear a song...</span>-->
+          <!--<span *ngIf="feedback">{{feedback}}</span>-->
+        <!--</h1>-->
+      <!--</header>-->
       <nav>
         <button
           type="button"
@@ -53,7 +54,8 @@ import './app.scss';
       <three
         [isVRMode]="isVRMode"
         [ngModel]="audioData"
-        [image]="image">
+        [image]="image"
+        [buildings]="buildings">
       </three>
     </main>
   `,
@@ -78,6 +80,7 @@ export class AppComponent {
   isVRMode: boolean = false;
   feedback: string = '';
   supportsVR: boolean = false;
+  buildings: Object = MockBuildings;
 
   getVRSupport(): void {
     if(navigator.getVRDisplays === undefined || navigator.getVRDevices === undefined) {

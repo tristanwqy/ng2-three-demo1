@@ -22,12 +22,12 @@ import { Input, Component, HostListener } from '@angular/core';
         <three-perspective-camera
           [height]="height"
           [width]="width"
-          [positions]="[-50, 0, 0]">
+          [positions]="[-2500, 0, 1000]">
         </three-perspective-camera>
 
         <three-point-light></three-point-light>
 
-        <three-sphere></three-sphere>
+        <three-sphere [buildings]="buildings"></three-sphere>
 
         <three-skybox></three-skybox>
 
@@ -43,6 +43,7 @@ export class ThreeComponent {
   @Input() height: number;
   @Input() width: number;
   @Input() isVRMode: boolean = true;
+  @Input() buildings: any;
 
   ngOnInit() {
     this.resetWidthHeight();

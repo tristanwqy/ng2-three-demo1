@@ -9,8 +9,8 @@ export class PerspectiveCameraComponent {
   @Input() positions = [0, 0, 0];
 
   viewAngle: number = 75;
-  near: number = 0.1;
-  far: number = 10000;
+  near: number = 1;
+  far: number = 10000000;
   camera: THREE.PerspectiveCamera;
 
   get aspect(): number {
