@@ -35,7 +35,7 @@ export class SkyboxComponent {
     return function(image) {
       texture.image = image;
       texture.needsUpdate = true;
-    }
+    };
   }
 
   createPlaceholder() {
